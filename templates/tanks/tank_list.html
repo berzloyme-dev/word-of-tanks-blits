@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="page-grid">
+
+    <!-- LEFT: NATIONS -->
+    <aside class="panel">
+        <h3 class="panel-title">Nations</h3>
+
+        <a class="panel-link {% if not selected_nation %}active{% endif %}"
+           href="{% url 'tank_list' %}?tier={{ selected_tier }}&tank_class={{ selected_class }}{% if selected_premium %}&premium=1{% endif %}">
+            All Tanks
+        </a>
+
+        <div class="panel-list">
+            {% for n in nations %}
+                <a class="panel-link {% if selected_nation == n.slug %}active{% endif %}"
+                   href="{% url 'tank_list' %}?nation={{ n.slug }}&tier={{ selected_tier }}&tank_class={{ selected_class }}{% if selected_premium %}&premium=1{% endif %}">
+                    <span>{{ n.name }}</span>
+                    <span class="count">{{ n.tanks.count }}</span>
+                </a>
+            {% empty %}
+                <p class="muted">Nation yo‘q</p>
+            {% endfor %}
+        </div>
+    </aside>
+
+
+    <!-- CENTER: TANKS -->
+    <section class="center">
+        <h1 class="page-title">
+            {% if selected_nation %}
+                {{ selected_nation|upper }} Tanks
+            {% else %}
+                All Tanks
+            {% endif %}
+        </h1>
+
+        <div class="tank-grid">
+            {% for tank in tanks %}
+                <a href="{% url 'tank_detail' tank.slug %}" class="tank-card">
+
+                    {% if tank.is_premium %}
+                        <span class="premium-badge">PREMIUM</span>
+                    {% endif %}
+
+                    {% if tank.image %}
+                        <img src="{{ tank.image.url }}" alt="{{ tank.name }}">
+                    {% endif %}
+
+                    <div class="tank-card-info">
+                        <h3>{{ tank.name }}</h3>
+                        <p>Daraja: {{ tank.tier }} · {{ tank.tank_class.name }}</p>
+                    </div>
+
+                </a>
+            {% empty %}
+                <p class="muted">Tanklar hali qo‘shilmagan</p>
+            {% endfor %}
+        </div>
+    </section>
+
+
+    <!-- RIGHT: FILTER -->
+    <aside class="panel">
+        <h3 class="panel-title">Filter</h3>
+
+        <form method="get" class="filter-form">
+
+            {% if selected_nation %}
+                <input type="hidden" name="nation" value="{{ selected_nation }}">
+            {% endif %}
+
+            <!-- TIER -->
+            <label class="filter-label">Daraja (Tier)</label>
+            <select name="tier" class="filter-select">
+                <option value="">Barchasi</option>
+                {% for i in "12345678910"|slice:":10" %}
+                {% endfor %}
+                <option value="1" {% if selected_tier == "1" %}selected{% endif %}>Tier 1</option>
+                <option value="2" {% if selected_tier == "2" %}selected{% endif %}>Tier 2</option>
+                <option value="3" {% if selected_tier == "3" %}selected{% endif %}>Tier 3</option>
+                <option value="4" {% if selected_tier == "4" %}selected{% endif %}>Tier 4</option>
+                <option value="5" {% if selected_tier == "5" %}selected{% endif %}>Tier 5</option>
+                <option value="6" {% if selected_tier == "6" %}selected{% endif %}>Tier 6</option>
+                <option value="7" {% if selected_tier == "7" %}selected{% endif %}>Tier 7</option>
+                <option value="8" {% if selected_tier == "8" %}selected{% endif %}>Tier 8</option>
+                <option value="9" {% if selected_tier == "9" %}selected{% endif %}>Tier 9</option>
+                <option value="10" {% if selected_tier == "10" %}selected{% endif %}>Tier 10</option>
+            </select>
+
+            <!-- CLASS -->
+            <label class="filter-label">Tank turi</label>
+            <select name="tank_class" class="filter-select">
+                <option value="">Barchasi</option>
+                {% for c in tank_classes %}
+                    <option value="{{ c.slug }}" {% if selected_class == c.slug %}selected{% endif %}>
+                        {{ c.name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <!-- PREMIUM -->
+            <label class="filter-check">
+                <input type="checkbox" name="premium" value="1" {% if selected_premium %}checked{% endif %}>
+                Faqat Premium
+            </label>
+
+            <button type="submit" class="filter-btn">Apply</button>
+            <a href="{% url 'tank_list' %}" class="filter-reset">Reset</a>
+
+        </form>
+    </aside>
+
+</div>
+
+{% endblock %}

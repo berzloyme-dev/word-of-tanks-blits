@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="breadcrumb">
+    HOME > {{ tank.nation.name }} > {{ tank.name }}
+</div>
+
+<h1 class="event-title">
+    {{ tank.name }}
+    {% if tank.is_premium %}
+        <span class="premium-text">PREMIUM</span>
+    {% endif %}
+</h1>
+
+<div class="event-wrapper">
+
+ {% if tank.image %}
+    <img src="{{ tank.image.url }}" alt="{{ tank.name }}">
+{% endif %}
+
+
+    <div class="event-text">
+        <ul class="stats">
+            <li>Daraja: {{ tank.tier }}</li>
+            <li>Turi: {{ tank.tank_class.name }}</li>
+            <li>Jon: {{ tank.hp }}</li>
+            <li>Zarar: {{ tank.damage }}</li>
+            <li>Teshib o‘tish: {{ tank.penetration }}</li>
+            <li>Zirh: {{ tank.armor }}</li>
+            <li>Tezlik: {{ tank.speed }} km/h</li>
+        </ul>
+
+    </div>
+
+</div>
+
+{% endblock %}

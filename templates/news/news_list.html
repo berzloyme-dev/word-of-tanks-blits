@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="content">
+
+    <h1 style="margin-bottom:30px;">News</h1>
+
+    <div class="tank-grid">
+        {% for article in articles %}
+            <a href="{% url 'news_detail' article.slug %}" class="tank-card">
+
+                {% if article.cover %}
+                    <img src="{{ article.cover.url }}" alt="{{ article.title }}">
+                {% endif %}
+
+                <div style="padding:16px;">
+                    <h3>{{ article.title }}</h3>
+                    <p style="color:#bfc7d5;font-size:14px;">
+                        {{ article.intro|truncatewords:18 }}
+                    </p>
+                </div>
+
+            </a>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="page-container">
+
+
+
+    <div class="article-content">
+        <h1 class="article-title">{{ article.title }}</h1>
+
+            <div class="article-hero">
+        {% if article.cover %}
+            <img src="{{ article.cover.url }}" alt="{{ article.title }}">
+        {% endif %}
+    </div>
+
+        {% if article.intro %}
+            <p class="article-intro">{{ article.intro }}</p>
+        {% endif %}
+
+        {% for block in article.context_set.all %}
+            {% if block.text %}
+                <p>{{ block.text }}</p>
+            {% endif %}
+            {% if block.image %}
+                <img src="{{ block.image.url }}">
+            {% endif %}
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

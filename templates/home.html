@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Welcome to World of Tanks Blitz</h1>
+
+<h2>Latest News</h2>
+
+<div class="news-preview">
+    {% for article in latest_news %}
+        <a href="{% url 'news_detail' article.slug %}" class="news-card">
+            <img src="{{ article.cover.url }}" alt="{{ article.title }}">
+            <h4>{{ article.title }}</h4>
+        </a>
+    {% empty %}
+        <p>Hozircha yangiliklar yo‘q</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

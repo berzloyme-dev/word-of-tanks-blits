@@ -1,0 +1,38 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>World of Tanks Blitz</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+
+<!-- MAIN NAVBAR -->
+<nav class="main-navbar">
+
+    <div class="nav-left">
+        <img src="{% static 'oq.png' %}" alt="logo" class="logo-img">
+        <span class="logo-text">WOT BLITZ</span>
+    </div>
+
+    <ul class="nav-menu">
+        <li><a href="{% url 'tank_list' %}">HOME</a></li>
+        <li><a href="{% url 'tank_list' %}?premium=1">PREMIUM</a></li>
+        <a href="{% url 'news_list' %}">NEWS</a>
+        <li><a href="#">TOURNAMENTS</a></li>
+        <li><a href="#">STORE</a></li>
+    </ul>
+
+</nav>
+
+
+
+
+<!-- PAGE CONTENT -->
+<main class="content">
+    {% block content %} {% endblock %}
+</main>
+
+</body>
+</html>
