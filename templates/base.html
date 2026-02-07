@@ -20,8 +20,6 @@
         <li><a href="{% url 'tank_list' %}">HOME</a></li>
         <li><a href="{% url 'tank_list' %}?premium=1">PREMIUM</a></li>
         <a href="{% url 'news_list' %}">NEWS</a>
-        <li><a href="#">TOURNAMENTS</a></li>
-        <li><a href="#">STORE</a></li>
     </ul>
 
 </nav>
@@ -29,7 +27,6 @@
 
 
 
-<!-- PAGE CONTENT -->
 <main class="content">
     {% block content %} {% endblock %}
 </main>

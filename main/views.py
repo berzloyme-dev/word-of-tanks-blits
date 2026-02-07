@@ -4,8 +4,7 @@ from news.models import Article
 
 
 def tank_list(request):
-
-    tanks = Tank.objects.select_related('nation', 'tank_class')
+    tanks = Tank.objects.select_related('nation', 'tank_class').all()
 
     tier = request.GET.get('tier')
     class_slug = request.GET.get('tank_class')
@@ -18,7 +17,7 @@ def tank_list(request):
     if tier and tier.isdigit():
         tanks = tanks.filter(tier=int(tier))
 
-    if class_slug:
+    if class_slug and class_slug != "None":
         tanks = tanks.filter(tank_class__slug=class_slug)
 
     if premium == "1":
@@ -39,6 +38,7 @@ def tank_list(request):
 
 
 
+
 def tank_detail(request, slug):
     tank = get_object_or_404(
         Tank.objects.select_related('nation', 'tank_class'),
@@ -49,7 +49,6 @@ def tank_detail(request, slug):
     })
 
 
-# 🔥 MANA SHU OLDINGI XATONI HAL QILADI
 def tanks_by_nation(request, slug):
     nation = get_object_or_404(Nation, slug=slug)
     tanks = Tank.objects.select_related('nation', 'tank_class').filter(nation=nation)

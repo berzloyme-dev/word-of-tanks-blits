@@ -143,7 +143,7 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Blitz Panel",
     "welcome_sign": "Xush kelibsiz, komandir 👨‍✈️",
 
-    "theme": "darkly",  # 🔥 DARK MODE
+    "theme": "darkly",
 
     "topmenu_links": [
         {"name": "Site", "url": "/", "permissions": ["auth.view_user"]},
